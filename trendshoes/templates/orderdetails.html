@@ -1,0 +1,92 @@
+{% extends "adminbase.html" %}
+{% block om %} active {% endblock %} 
+{% block body %}
+<div class="card shadow" style="background-color: black;">
+    <div class="card-body">
+            <h5 class="p-2" style="border-bottom: 2px solid orange;" >Order Details</h5>  
+        <form >
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                       <h4> Address :</h4> <span style="font-size: .9rem" ><div class="p-2" style="border: 2px solid orange; border-radius: 5px" >
+                                <div>{{addrs.firstname}} {{addrs.lastname}}
+                                <br>{{addrs.address_line_1}}
+                                {% comment %} <br>{{addrs.address_line_2}} {% endcomment %}
+                                <br>{{addrs.city}},{{addrs.state}}
+                                <br>Pincode - {{addrs.pincode}}
+                                <br>{{addrs.phone}}
+                                </div>
+                            </div></span>
+                            {% comment %} <input type="text" name="categories" class="form-control"  value="{{ editted.category }}" required> {% endcomment %}
+                            </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <h5>Product Details : </h5><span style="font-size: .9rem" >{{ editted.name }}</span>
+                        <table class="table table-borderless">
+                  <thead class="text-muted">
+                    <tr class="small text-uppercase">
+                      <th scope="col">Product</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Product Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in product %}
+                    <tr>
+                      <td>
+                        <figure class="itemside align-items-center">
+                          <div class="how-itemcart1">
+                            <img
+                              src="{{ item.product.img1.url }} "
+                              style="height: 100px"
+                              alt="IMG"/>
+                          </div>
+                        </figure>
+                      </td>
+                      <td class="column">
+                        <label class="my-3" for="">{{ item.quantity }}</label>
+                      </td>
+                      <td>
+                        <div class="price-wrap my-3">
+                          <var class="price">₹ {{item.product_price}}</var><br />
+            
+                        </div>
+                        <!-- price-wrap .// -->
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                    
+                    
+                    </div>
+                    <br>
+                </div>
+            
+                <div class="col-md-6" >
+                <h5 class="p-2" style="border-bottom: 2px solid orange;">Order Details</h5>
+                <table class="table  table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">amount</th>
+                    <th scope="col">payment mode</th>
+                    <th scope="col">tracking id</th>
+                    <th scope="col">status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <td>₹{{order.order_total}}</td>
+                <td>{{order.payment.payment_method}}</td>
+                <td>{{order.order_number}}</td>
+                <td>{{order.status}}</td>
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

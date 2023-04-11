@@ -1,0 +1,109 @@
+{% extends "adminbase.html" %}
+{% block pm %} active {% endblock %} 
+{% block body %}
+<div class="card shadow" style="background-color: black;">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Edit Variant</h5>
+        <form method="POST" action=""  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    {% comment %} <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Product Category</label>
+                            <select name="categories" class="form-control" required>
+                                <option value="" >Choose Category</option>
+                                {% for i in category %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div> {% endcomment %}
+                    <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Products</label>
+                            <select name="Product" class="form-control" required>
+                                <option value="{{ editted.product.id }}" >{{ editted.product }}</option>
+                                {% for i in product %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Product Color</label>
+                            <input type="text" name="color" class="form-control" style="border: 2px solid orange;" value="{{ editted.color }}" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Product Price</label>
+                            <input type="text" name="price" class="form-control" style="border: 2px solid orange;" value="{{ editted.price }}" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 m-2 ">
+                    <div class="form-group row ">
+                    <label>Variant Size and its Stocks </label>
+                    {% if size|length == 0 %}
+                    <div class="m-5" >
+                    There are no variants for this Product
+                    <a href="{% url 'addsizeandstock' editted.id %}" class="btn col-md-6 m-2" style="border: 2px solid orange; " >Add Variants</a>
+                    </div>
+                    {% else %}
+                    {% for i in size %}
+                    <div class="col-md-2 m-2 ">
+                        <a href="{% url 'deletesize' i.id %}" class=" btn  " style=" color: red; " 
+                        onclick="return confirm('Are You Sure ?')"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+                        <input type="text" name="size{{ i.id }}" class="form-control" style="border: 2px solid orange;" value="{{ i.size }}" required>
+                        <input type="text" name="stock{{ i.id }}" class="form-control mt-2" style="border: 2px solid orange;" value="{{i.stock}}" required>
+                        
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-2 m-2 mt-5">
+                    <a href="{% url 'addsizeandstock' editted.id %}" class=" btn my-2 " style="border: 1px solid ; color: white; ">Add 
+                    <i class="fa fa-plus" aria-hidden="true"></i></a>
+                    </div>
+                    {% endif %}
+
+                    {% comment %} {% for size in sizes %}
+<div class="col-md-2 m-2 ">
+    <input type="text" name="size_{{ size.id }}" class="form-control" style="border: 2px solid orange;" value="{{ size.size }}" required>
+    <input type="text" name="stock_{{ size.id }}" class="form-control mt-2" style="border: 2px solid orange;" value="{{ size.stock }}" required>
+</div>
+{% endfor %} {% endcomment %}
+
+                    </div>
+                    </div>
+
+
+                </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <img src="{{ editted.img1.url }}" style="width:100px"/>
+                            <label>Product Image</label>
+                            <input type="file" name="img1" class="form-control m-2 " style="border: 2px solid orange;">
+                            <img src="{{ editted.img2.url }}" style="width:100px"/>
+                            <label>Image 2</label>
+                            <input type="file" name="img2" class="form-control m-2" style="border: 2px solid orange;" >
+                            <img src="{{ editted.img3.url }}" style="width:100px"/>
+                            <label>Image 3</label>
+                            <input type="file" name="img3" class="form-control m-2" style="border: 2px solid orange;" >
+                        </div>
+                    </div>
+                    
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary  ">
+            </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

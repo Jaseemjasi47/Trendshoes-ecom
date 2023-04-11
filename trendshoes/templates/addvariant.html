@@ -1,0 +1,52 @@
+{% extends "adminbase.html" %}
+{% block pm %} active {% endblock %} 
+{% block body %}
+<div class="card shadow" style="background-color: black;">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Add Variant</h5>
+        <div class="container-fluid">
+            <form method="POST" action=""  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h5>Product Name : </h5><span style="font-size: .9rem" >{{ product.name }}</span>
+                        </div>
+                        <br>
+                    </div>
+                    
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Product Color</label>
+                            <input type="text" name="color" class="form-control" style="border: 2px solid orange;" placeholder="Product Color" required>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <input type="file" name="img1" class="form-control" style="border: 2px solid orange;" required>
+                            <label>Image 2</label>
+                            <input type="file" name="img2" class="form-control" style="border: 2px solid orange;" >
+                            <label>Image 3</label>
+                            <input type="file" name="img3" class="form-control" style="border: 2px solid orange;" >
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Product Price</label>
+                            <input type="text" name="price" class="form-control" style="border: 2px solid orange;" placeholder="Product Price" required>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

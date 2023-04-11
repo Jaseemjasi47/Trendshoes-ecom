@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Trends</title>
+	<!--
+		CSS
+		============================================= -->
+	<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.css' %}" >
+	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css' %}" >
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/userprofile.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+
+	<!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light main_box">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<span class="navbar-brand logo_h"><img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-shoes-fitness-gym-justicon-flat-justicon.png"/></span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav ml-auto">
+							<li class="nav-item "><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+							<li class="nav-item submenu dropdown">
+								<a href="{% url 'category' 0 %}" class="nav-link "  role="button" >Shop</a>
+							</li>
+							<li class="nav-item submenu dropdown">
+								{% if user.is_authenticated %}
+								<a href="{% url 'logout' %}" class="nav-link" >Logout</a>
+								{% else %}
+								<a href="{% url 'login' %}" class="nav-link" >Login</a>
+								{% endif %}
+							</li>
+							<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item"><a href="{% url 'viewcart' %}" class="viewcart"><span class="ti-bag"></span></a></li>
+                            <li class="nav-item"><a href="{% url 'wishlist' %}" class="wishlist"><span class="lnr lnr-heart"></span></a></li>
+							<li class="nav-item active"><a href="{% url 'userprofile' user.id %}" class="w-3"><span><img src="https://img.icons8.com/fluency-systems-regular/48/null/user.png" style="width:22px" /></span></a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+    <!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>My Profile</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-3 my-lg-0 my-md-1">
+                <div id="sidebar" class="bg-purple">
+                    <div class="h4 text-white">Account</div>
+                    <ul>
+                        <li class="active">
+                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                                <div class="fas fa-box pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">My Profile</div>
+                                    <div class="link-desc">Change your profile details & password</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'myorders' %}" class="text-decoration-none d-flex align-items-start">
+                                <div class="fas fa-box-open pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">My Orders</div>
+                                    <div class="link-desc">View & Manage orders and returns</div>
+                                </div>
+                            </a>
+                        </li>
+                        {% if user.is_superuser %}
+                        <li>
+                            <a href="{% url 'admindashboard' %}" class="text-decoration-none d-flex align-items-start">
+                                <div class="fas fa-box-open pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">Admin Dashboard</div>
+                                    <div class="link-desc">View All Details & Manage All</div>
+                                </div>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="col-lg-9 my-lg-0 my-1">
+                <div id="main-content" class="bg-white border">
+                    <div class="d-flex flex-column">
+                    <div class="row">
+                        <div class="h5">Hello {{user.username}},</div>
+                        <div class="float-right ml-5 pl-5" ><a href="{% url 'logout' %}" class="nav-link" >Logout</a></div>
+                    </div>
+                        <div>Logged in as: {{user.email}}</div>
+                            <div class="col-lg-6">
+                                <div class=" align-items-sm-start justify-content-sm-between">
+                                <a href="{% url 'changepassword' %}" class="btn text-uppercase m-2" style="font-size: small; color: skyblue; border: 1px solid skyblue;" >Change Password</a></div>
+                                </div>
+                            </div> 
+                            <div class="text-uppercase">Address</div>
+                    {% if addrs is none %} 
+                        
+                                Please Add Your Address <br> <a href="{% url 'addaddress' user.id %}" class="btn   text-uppercase my-2" style="font-size: small;  border: 1px solid blue;" >Add Address</a>
+                                {% else %}
+                    {% for addrs in addrs %}
+                    <div id="main-content" class="bg-white border">
+                    <div>{{addrs.firstname}} {{addrs.lastname}}
+                    <br>{{addrs.address_line_1}}
+                    {% comment %} <br>{{addrs.address_line_2}} {% endcomment %}
+                    <br>{{addrs.city}},{{addrs.state}}
+                    <br>Pincode - {{addrs.pincode}}
+                    <br>{{addrs.phone}}</div>
+                    <div><a href="{% url 'editprofile' addrs.id %}" class="btn text-uppercase my-2" style="font-size: small; color: skyblue; border: 1px solid skyblue;" >Edit</a> <a href="{% url 'deladdress' addrs.id %}" class="btn text-uppercase my-2" style="font-size: small; color: red; border: 1px solid red;" >Delete</a></div>
+                    </div>
+                    {% endfor %}
+                        <div class="col-lg-6">
+                                <div class=" align-items-sm-start justify-content-sm-between">
+                                <div>   <a href="{% url 'addaddress' user.id %}" class="btn  text-uppercase my-2" style="font-size: small; color: skyblue; border: 1px solid skyblue;" >Add Address</a> </div>
+                                
+                                {% endif %}
+                                </div>
+                        </div>
+                        </div>
+                    {% comment %} </div> {% endcomment %}
+                    {% comment %} <div class="d-flex my-4 flex-wrap">
+                        <div class="box me-4 my-1 bg-light">
+                            <img src="https://www.freepnglogos.com/uploads/box-png/cardboard-box-brown-vector-graphic-pixabay-2.png"
+                                alt="">
+                            <div class="d-flex align-items-center mt-2">
+                                <div class="tag">Orders placed</div>
+                                <div class="ms-auto number">10</div>
+                            </div>
+                        </div>
+                        <div class="box me-4 my-1 bg-light">
+                            <img src="https://www.freepnglogos.com/uploads/shopping-cart-png/shopping-cart-campus-recreation-university-nebraska-lincoln-30.png"
+                                alt="">
+                            <div class="d-flex align-items-center mt-2">
+                                <div class="tag">Items in Cart</div>
+                                <div class="ms-auto number">10</div>
+                            </div>
+                        </div>
+                        <div class="box me-4 my-1 bg-light">
+                            <img src="https://www.freepnglogos.com/uploads/love-png/love-png-heart-symbol-wikipedia-11.png"
+                                alt="">
+                            <div class="d-flex align-items-center mt-2">
+                                <div class="tag">Wishlist</div>
+                                <div class="ms-auto number">10</div>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+                    {% comment %} <div class="text-uppercase">My recent orders</div>
+                    <div class="order my-3 bg-light">
+                    <div class="row">
+                    <div class="col-lg-2">
+                                <img class="img-fluid w-100" src="{% static 'img/product/p1.jpg'%}" alt="">
+                                </div>
+                            <div class="col-lg-4">
+                                <div class="d-flex flex-column justify-content-between order-summary">
+                                
+                                    <div class="d-flex align-items-center">
+                                        <div class="text-uppercase">Order #fur10001</div>
+                                        <div class="blue-label ms-auto text-uppercase">paid</div>
+                                    </div>
+                                    <div class="fs-8">Products #03</div>
+                                    <div class="fs-8">22 August, 2020 | 12:05 PM</div>
+                                    <div class="rating d-flex align-items-center pt-1">
+                                        <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
+                                            alt=""><span class="px-2">Rating:</span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="far fa-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class=" align-items-sm-start justify-content-sm-between">
+                                <div class="btn btn-primary text-uppercase mt-2">order info</div>
+                                    <div class="status mt-3">Status : Delivered</div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <div class="order my-3 bg-light">
+                        <div class="row">
+                        <div class="col-lg-2">
+                                <img class="img-fluid w-100" src="{% static 'img/product/p3.jpg'%}" alt="">
+                                </div>
+                            <div class="col-lg-4">
+                                <div class="d-flex flex-column justify-content-between order-summary">
+                                    <div class="d-flex align-items-center">
+                                        <div class="text-uppercase">Order #fur10001</div>
+                                        <div class="green-label ms-auto text-uppercase">cod</div>
+                                    </div>
+                                    <div class="fs-8">Products #03</div>
+                                    <div class="fs-8">22 August, 2020 | 12:05 PM</div>
+                                    <div class="rating d-flex align-items-center pt-1">
+                                        <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
+                                            alt=""><span class="px-2">Rating:</span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="far fa-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class=" align-items-sm-start justify-content-sm-between">
+                                <div class="btn btn-primary text-uppercase mt-2">order info</div>
+                                    <div class="status mt-3">Status : Delivered</div>
+                                </div>
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                 {% else %}
+                <div class="col-lg-9 my-lg-0 my-1">
+                <div id="main-content" class="bg-white border">
+                    <div class="d-flex flex-column">
+                        <div class="h5 p-5 m-5 text-center">You are not logged in, Please Login</div>
+                                </div>
+                            </div>
+                {% endif %}
+    </div>
+	<!-- End Banner Area -->
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 crossorigin="anonymous"></script>
+	<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+	<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+	<script src="{% static 'js/jquery.sticky.js' %}"></script>
+	<script src="{% static 'js/nouislider.min.js' %}"></script>
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="{% static 'js/gmaps.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

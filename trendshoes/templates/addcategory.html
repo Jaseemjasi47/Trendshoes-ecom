@@ -1,0 +1,24 @@
+{% extends "adminbase.html" %}
+{% block cm %} active {% endblock %} 
+{% block body %}
+<div class="card shadow w-100" style="background-color: black;">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Add Category</h5>
+        <div class="container-fluid">
+            <form action="{% url 'addcategory' %}" method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <input type="text" name="name" class="form-control" style="border: 2px solid orange;" placeholder="Category Name">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary ">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

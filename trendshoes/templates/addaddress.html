@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block heading %}
+Add Your Address                   
+{% endblock heading %}
+
+{% block body %}
+
+<section class="section-content">
+    
+
+    <article class="card">
+                <br/>
+    <h2>&nbsp;&nbsp;Add New Address</h2>
+                <div class="card-body">
+    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="row contact_form" action="{% url 'addaddress' 0  %}" method="POST">
+                                {%csrf_token%}
+                                <div class="col-md-6 form-group p_star">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" id="first"  name="firstname" placeholder="First Name"required />
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" id="last"  name="lastname" placeholder="Last Name" required/>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" id="phone"  name="phone"  placeholder="Phone Number"required  pattern="[0-9]+" title="Please enter only digits" maxlength="10"/>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" id="email"  name="email"placeholder="Email" required/>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" id="add1"  name="address_line_1" placeholder="Address"required/>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Landmark</label>
+                                    <input type="text" class="form-control" id="add1"  name="address_line_2" placeholder="Landmark"required/>
+                                </div>
+                                
+                                <div class="col-md-6 form-group p_star">
+                                    <label>City</label><br>
+                                    <select class="form-select" id="id_city" name="city" required><br>
+                                        <option value="">Select city</option>
+                                        {% for city in city %}
+                                            
+                                                <option value="{{ city }}">{{ city }}</option>
+                                            
+                                        {% endfor %}
+                                    </select><br>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>State</label><br>
+                                    <select class="form-select" id="id_state" name="state" required><br>
+                                        <option value="">Select State</option>
+                                        {% for state in state %}
+                
+                                                <option value="{{ state }}">{{ state }}</option>
+            
+                                        {% endfor %}
+                                    </select><br>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Pin Code</label>
+                                    <input type="text" class="form-control" id="pincode" name="pincode"  placeholder="Pincode" required pattern="[0-9]+" title="Please enter only digits" maxlength="6"/>
+                                </div>
+                                <input type="hidden" class="form-control" name="form_from" value="{{form_from}}" required/>
+    
+    
+                                <br/><br/>
+                                <div class="col-sm-12 form-group p_star">
+                                    <center>
+                                        <button type="submit" name="submit" class=" btn btn-info " style="height:50px">Save</button>
+                                    </center>
+                                </div>
+                            </form>
+                        </div>
+    
+                        </div>
+    
+                    </div>
+                </div>
+            </article>
+            
+        </main>
+        </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock %} 

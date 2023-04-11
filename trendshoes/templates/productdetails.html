@@ -1,0 +1,60 @@
+{% extends "adminbase.html" %}
+{% block pm %} active {% endblock %} 
+{% block body %}
+<div class="card shadow" style="background-color: black;">
+    <div class="card-body">
+        <div style="border-bottom: 2px solid orange;" >
+        <div><a href="{% url 'addvariant' editted.id %}" class="btn float-end mx-2" style="border: 2px solid green;" >Add New</a></div>
+            <h5 class="p-2" >Product Details</h5>  
+        </div>
+        <form >
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                       <h4> Category :</h4> <span style="font-size: .9rem" >{{ editted.category }}</span>
+                            {% comment %} <input type="text" name="categories" class="form-control"  value="{{ editted.category }}" required> {% endcomment %}
+                            </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <h5>Product Name : </h5><span style="font-size: .9rem" >{{ editted.name }}</span>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        
+                        <h5>Description :</h5> <span style="font-size: .9rem" >{{ editted.description }}</span>
+                        </div>
+                </div>
+            
+                <div class="col-md-6" >
+                <h5 class="p-2" style="border-bottom: 2px solid orange;">Product Variants</h5>
+                <table class="table  table-sm">
+                <thead>
+                <tr>
+                    <th>Image</th> 
+                    <th>Product Color</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for v in var %}
+                    {% if v.product.name == editted.name %}
+                    <tr>
+                        <td><img src="{{ v.img1.url }}" style="width:40px"/></td>
+                        <td><a href="{% url 'editvariant' v.id %}">({{v.color}})</a></td>
+                        <td>{{v.price}}</td>
+                    </tr>
+                    <br>
+                    <br>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

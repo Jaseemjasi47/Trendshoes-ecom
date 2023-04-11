@@ -1,0 +1,111 @@
+{% extends "adminbase.html" %}
+{% block pm %} active {% endblock %} 
+{% block search %}  action="{% url 'searchproduct' %}" {% endblock %}
+{% block body %}
+<div class="card shadow w-100" style="background-color: black;">
+    <div class="card-body">
+        <div style="border-bottom: 2px solid orange;" >
+        <div><a href="{% url 'addproduct' %}" class="btn float-end mx-2" style="border: 2px solid green;" >Add New</a></div>
+            <h5 class="p-2" >All Product</h5>  
+        </div>
+            <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Variant</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in page_obj %}
+                <div class="navbar-nav w-100">
+                <div class="nav-item dropdown">
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td> <a href="{% url 'productdetails' i.id %}"> {{i.name}} </a> </td>
+                    <td>{{i.category.name}}</td>
+                    <td>
+                    
+                        
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-th me-2"></i>Variants</a>
+                            <div class="dropdown-menu border-0">
+                            <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Image</th> 
+                    <th>Product Color</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for v in variant %}
+                {% if v.product.name == i.name %}
+                <tr>
+                    <td>{{v.id}}</td>
+                    <td><img src="{{ v.img1.url }}" style="width:40px"/></td>
+                    <td>({{v.color}}) </td>
+                    {% comment %} <td>{{v.category.name}}</td> {% endcomment %}
+                    <td>{{v.price}}</td>
+                    {% comment %} <td>{{i.stock}}</td> {% endcomment %}
+                    <td>
+                        <a href="{% url 'editvariant' v.id %}" class="btn" style="border: 1px solid green; " ><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        {% comment %} {% url 'editproduct' i.id %} {% endcomment %}
+                        <a href="" class=" btn" style="border: 1px solid red; "
+                        {% comment %} {% url 'deleteproduct' i.id %} {% endcomment %}
+                           onclick="return confirm('Are You Sure ?')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+                            </div>
+                        </div>
+                    
+                    </td>
+                    <td>
+                        <a href="{% url 'editproduct' i.id %}" class="btn" style="border: 1px solid green; "  ><i class="fa fa-edit" aria-hidden="true"></i> </a>
+                        {% comment %} {% url 'editproduct' i.id %} {% endcomment %}
+                        <a href="" class=" btn mx-2" style="border: 1px solid red; bg-color: white; " 
+                        {% comment %} {% url 'deleteproduct' i.id %} {% endcomment %}onclick="return confirm('Are You Sure ?')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+                </div>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="col-lg-12 ">
+                <div class="pagination justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                        <i class="ti-angle-left">PREVIOUS</i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for page in page_obj.paginator.page_range %}
+                                {% if page_obj.number == page %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                                {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                        <i class="ti-angle-right">NEXT</i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

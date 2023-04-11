@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Trends</title>
+
+    <!--
+            CSS
+            ============================================= -->
+
+  <!--alertify CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+  <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/userprofile.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+
+    <!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light main_box">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<span class="navbar-brand logo_h"><img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-shoes-fitness-gym-justicon-flat-justicon.png"/></span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav ml-auto">
+							<li class="nav-item "><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+							<li class="nav-item submenu dropdown">
+								<a href="{% url 'category' 0 %}" class="nav-link "  role="button" >Shop</a>
+							</li>
+              {% if user.is_authenticated %}
+								{% else %}
+							<li class="nav-item submenu dropdown">
+								<a href="{% url 'login' %}" class="nav-link" >Login</a>
+							</li>
+              {% endif %}
+							<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item active"><a href="{% url 'viewcart' %}" class="cart"><span class="ti-bag"></span></a></li>
+                            <li class="nav-item"><a href="{% url 'wishlist' %}" class="wishlist"><span class="lnr lnr-heart"></span></a></li>
+							{% if user.is_authenticated %}
+							<li class="nav-item"><a href="{% url 'userprofile' user.id %}" class="w-3"><span><img src="https://img.icons8.com/fluency-systems-regular/48/null/user.png" style="width:22px" /></span></a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Confirmation</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+<section class="confirmation_part padding_top">
+    <div class="container">
+      
+        <div class="col-lg-12">
+          <div class="confirmation_tittle font-weight-bold ">
+            <span>Please confirm your order here.</span>
+          </div>
+        </div>
+        
+        </div>
+        
+        <div class="col-lg-12 ml-2"  >
+          <div class="single_confirmation_details">
+            <form  action="{% url 'place_order'  %} " method="POST">
+              {% csrf_token %}
+            <h4>shipping Address</h4>
+            <ul>
+              <li>
+                <p>Name: <span>{{addressSelected.firstname}} {{addressSelected.lastname}}</span></p>
+              </li>
+               
+              <li>
+                <p>Address: <span>{{addressSelected.address_line_1}}</span></p>
+              </li>
+              <li>
+                <p>Phone: <span>{{addressSelected.phone}}</span></p>
+              </li>
+              <li>
+                <p>Email: <span>{{addressSelected.email}}</span></p>
+              </li>
+              <li>
+                <p>City: <span>{{addressSelected.city}}</span></p>
+              </li>
+              <li>
+                <p>postcode: <span>{{addressSelected.pincode}}</span></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      
+      
+        <div class="col-lg-10 ">
+          <div class="order_details_iner ">
+            <h3>Order Details</h3>
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="2"><h4>Products</h4></th>
+                  <th scope="col"><h4>Quantity</h4></th>
+                  <th scope="col"><h4>Total</h4></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for item in cart_items %}
+                <tr>
+                  <th colspan="2">{{item.product.product.name}}({{item.product.color}}) <br>Size: ({{item.size}})<span></span></th>
+                  <th>x{{item.quantity}}</th>
+                  <th> <span>Rs. {{item.sub_total}}</span></th>
+                </tr>
+                {% endfor %}
+                
+                <tr>
+                  
+                  <th colspan="3"><h4>Subtotal</h4></th>
+                  <th> <span>Rs. {{total}}</span></th>
+                </tr>
+                <tr>
+                  <th colspan="3"><h4>Shipping</h4></th>
+                  <th><span>Rs.{{ shippingcharge }} </span></th>
+                </tr>
+                {% comment %} <tr>
+                  <th colspan="3">Grand Total</th>
+                  <th><span>Rs. {{grand_total}}</span></th>
+                </tr> {% endcomment %}
+              
+              
+                {% comment %} <tr>
+                  <th scope="col" colspan="3">Coupon Discount</th>
+                  <th scope="col">Rs. {{couponDiscount}}</th>
+                </tr> {% endcomment %}
+              </tbody>
+              <br>
+              <tfoot>
+                <tr>
+                  <th scope="col" colspan="3"><h4>Payable Amount</h4></th>
+                  <th scope="col">Rs. {{amountToBePaid}}</th>
+                </tr>
+              </tfoot>
+            </table>
+            
+            <div class="d-flex justify-content-center align-items-center">
+
+              <input type="hidden" class="form-control"  value="{{addressSelected.id}}" name="addressSelected" placeholder="First Name"required />
+              <input type="hidden" class="form-control" value="{{addressSelected.firstname}}" name="first_name"placeholder="First Name"required />
+              <input type="hidden" class="form-control" id="last"value="{{addressSelected.lastname}}" name="last_name"placeholder="Last Name" required/>
+              <input type="hidden" class="form-control" id="phone"value="{{addressSelected.phone}}" name="phone"placeholder="Phone Number"required/>
+              <input type="hidden" class="form-control" id="email"value="{{addressSelected.email}}" name="email"placeholder="Email" required/>
+              <input type="hidden" class="form-control" id="add1" value="{{addressSelected.address_line_1}}" name="address_line_1" placeholder="Address 1"required/>
+              <input type="hidden" class="form-control" id="add1" value="{{addressSelected.address_line_2}}" name="address_line_2" placeholder="Address 2"required/>
+              <input type="hidden" class="form-control" id="city" value="{{addressSelected.city}}" name="city"placeholder="City" required/>
+              <input type="hidden" class="form-control" id="state" value="{{addressSelected.state}}" name="state"placeholder="State" required/>
+
+              <input type="hidden" class="form-control" id="zip_code" name="zip_code"value="{{addressSelected.pincode}}" placeholder="Postcode/ZIP" required/>
+              <!-- Coupon Related Fields -->
+              <input type="hidden" class="form-control" value="{{total}}" name="total" required/>
+              <input type="hidden" class="form-control" value="{{grand_total}}" name="grand_total" required/>
+              <input type="hidden" class="form-control" value="{{amountToBePaid}}" name="amountToBePaid" required/>
+              <input type="hidden" class="form-control" id="couponCode" value="{{couponCode}}" name="couponCode" required/>
+              <input type="hidden" class="form-control" value="{{coupon_discount}}" name="couponDiscount" required/>
+             <!-- Cod Related Fields -->
+              <input type="hidden" value="COD" name="payment_method">
+
+
+              <button class="primary-btn btn my-3 " value="submit" type="submit" >Cash On Delivery</button>
+
+              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
+
+            </form>
+              <button class="btn my-3 primary-btn "  type="button" id="payWithRazorpay"  >Pay with Razorpay</button>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  </section>
+  <footer class="footer-area ">
+      
+    </footer>
+    <!-- End footer Area -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{% static 'js/checkout.js' %}"></script>
+
+
+
+{% if msg %}
+<script>
+  console.log("here");
+  swal("Error!", "{{msg}}", "info");
+
+</script>
+{% endif %}
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+	<script>
+        alertify.set('notifier','position', 'top-right');
+        {% for msg in messages %}
+			{% if msg.tags == 'success' %}
+            alertify.success('{{ msg }}');
+			{% else %}
+			alertify.warning('{{ msg }}');
+			{% endif %}
+        {% endfor %}
+        
+    </script>
+
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 crossorigin="anonymous"></script>
+	<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+	<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+	<script src="{% static 'js/jquery.sticky.js' %}"></script>
+	<script src="{% static 'js/nouislider.min.js' %}"></script>
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="{% static 'js/gmaps.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

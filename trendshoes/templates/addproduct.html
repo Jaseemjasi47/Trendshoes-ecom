@@ -1,0 +1,43 @@
+{% extends "adminbase.html" %}
+{% block pm %} active {% endblock %} 
+{% block body %}
+<div class="card shadow" style="background-color: black;">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Add Product</h5>
+        <div class="container-fluid">
+            <form method="POST" action=""  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Product Category</label>
+                            <select name="categories" class="form-control" required>
+                                <option value="" >Choose Category</option>
+                                {% for i in category %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" name="name" class="form-control" style="border: 2px solid orange;" placeholder="Product Name" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="desc" class="form-control " style="border: 2px solid orange; height: 25vh;" placeholder="write description here" required></textarea>
+                        </div>
+                    </div>
+           
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

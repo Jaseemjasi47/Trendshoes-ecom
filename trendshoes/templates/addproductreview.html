@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block heading %}
+Add Your Product Review                   
+{% endblock heading %}
+
+{% block body %}
+
+<div class="ml-5 " >
+ <h1>Submit Review for {{ order_product.product.name }}</h1>
+
+        <form class="row contact_form mx-auto" action="{ url 'addreview' %}" method="POST" id="contactForm" novalidate="novalidate">
+          {% csrf_token %}
+									<div class="col-md-6">
+										{% comment %} <div class="form-group">
+											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+										</div>
+									</div> {% endcomment %}
+									<div class="col-md-12">
+										<div class="form-group">
+                                        <label for="rating">Rating:</label>
+                                        <select id="rating" name="rating" required>
+                                            {% for rating, label in ProductReview.RATINGS %}
+                                            <option value="{{ rating }}">{{ label }}</option>
+                                            {% endfor %}
+                                        </select>
+											{% comment %} <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'"> {% endcomment %}
+										</div>
+									</div> 
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="form-control" name="comment" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"  required></textarea>
+										</div>
+									</div>
+                  <input type="hidden" name="id" value="{{ order_product.product.id }}" >
+									<div class="col-md-12 text-right">
+										<button type="submit" value="submit" class="primary-btn">Submit Now</button>
+									</div>
+		        </form>
+
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="rating">Rating:</label>
+      <select id="rating" name="rating" required>
+        {% for rating, label in ProductReview.RATINGS %}
+          <option value="{{ rating }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <textarea id="comment" name="comment" required></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  </div>
+  {% endblock %}

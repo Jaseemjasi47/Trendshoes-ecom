@@ -1,0 +1,70 @@
+{% extends "adminbase.html" %}
+{% block um %} active {% endblock %} 
+{% block search %}  action="{% url 'searchuser' %}" {% endblock %}
+{% block body %}
+<div class="card shadow w-100" style="background-color: black;">
+    <div class="card-body">
+
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">All Product</h5>
+        <div class="container-fluid">
+
+            <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Name</th> 
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in page_obj %}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.username}}</td>
+                    <td>{{i.email}}</td>
+                    <td>
+                    {% if  i.is_active %}
+                        <a href="{% url 'blockuser' i.id %}" class=" btn " style="border: 2px solid red;"
+                           onclick="return confirm('Are You Sure ?')">Block</a>
+                    {% else %}
+                        <a href="{% url 'blockuser' i.id %}" class=" btn" style="border: 2px solid orange;">Unblock</a>
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="col-lg-12 ">
+                <div class="pagination justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                        <i class="ti-angle-left">PREVIOUS</i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for page in page_obj.paginator.page_range %}
+                                {% if page_obj.number == page %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                                {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                        <i class="ti-angle-right">NEXT</i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

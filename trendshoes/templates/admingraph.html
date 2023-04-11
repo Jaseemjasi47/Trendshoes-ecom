@@ -1,0 +1,194 @@
+{% extends "adminbase.html" %}
+{% block db %} active {% endblock %} 
+{% block body %}
+
+<div class="row ">
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Total Users</h4>
+                    <h5 style="color : #F1948A">{{user}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Total Products</h4>
+                    <h5 style="color : #F1948A">{{product}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Total Category</h4>
+                    <h5 style="color : #F1948A">{{category}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Total Order</h4>
+                    <h5 style="color : #F1948A"> {{order}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Razorpay</h4>
+                    <h5 style="color : #F1948A">{{razorpay_sum}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Cash on delivery</h4>
+                    <h5 style="color : #F1948A">{{cod_sum}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Income expected</h4>
+                    <h5 style="color : #F1948A">{{income_expected}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 p-2">
+            <div class="card shadow bg-dark">
+                <div class="card-body">
+                    <h4 class="text-light">Income Generated</h4>
+                    <h5 style="color : #F1948A">{{total_income}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <!--Graphs-->
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-6">
+                <div class="bg-white">
+                    <canvas id="myChart1" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart1').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['COD', 'RAZORPAY'],
+                                datasets: [{
+                                    label: 'Total Income',
+                                    data: [{{cod_sum}},{{razorpay_sum}}],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+
+My Number Js, [03-04-2023 16:49]
+'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-white">
+                    <canvas id="myChart" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [{% for category in allcategory %}'{{category}}',{% endfor %}],
+                                datasets: [{
+                                    label: 'Products',
+                                    data: [{% for category in allcategory %}{{ category.product_set.count }},{% endfor %}],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Graphs-->
+    
+    
+    
+    
+        <!--script for chart-->
+            <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+         <!--Alertify JavaScript -->
+         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+            
+    
+        <script>
+            alertify.set('notifier','position', 'top-right');
+            {% for msg in messages %}
+                alertify.success('{{ msg }}');
+            {% endfor %}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+         {% endblock %} 
