@@ -57,7 +57,7 @@ $(document).ready(function () {
                         amount: response.amountToBePaid * 100, //response.total_price *100 , // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                         currency: "INR",
                         name: "Jaseem",
-                        description: "Thank you",
+                        description: "Thank you", // dfg
                         // image: "",
                         handler: function (responseb) {
                             // alert(responseb.razorpay_payment_id)
