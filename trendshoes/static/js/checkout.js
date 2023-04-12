@@ -52,9 +52,10 @@ $(document).ready(function () {
                     console.log("im in response45454545454545454");
 
                     console.log(response, amountToBePaid);
+                    let amount = parseInt(response.amountToBePaid * 100)
                     var options = {
                         key: razorKey, // Enter the Key ID generated from the Dashboard
-                        amount: response.amountToBePaid * 100, //response.total_price *100 , // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        amount: amount, //response.total_price *100 , // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                         currency: "INR",
                         name: "Jaseem",
                         description: "Thank you", // dfg
