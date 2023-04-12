@@ -568,7 +568,7 @@ def checkout(request):
                 'tws': tws, 
                 'price':price, 
                 'user': user,
-                'addrs': address 
+                'addrs': address,
                 }
         return render(request, 'checkout.html',context)
 
@@ -607,7 +607,8 @@ def confirmation(request, id):
             'addressSelected':address,
             'shippingcharge':Shipping,
             'amountToBePaid':amountToBePaid,
-            'total':total
+            'total':total,
+            'razor_key': trendshoes.settings.API_KEY
                 }
         return render(request, 'confirmation.html', context)
 
