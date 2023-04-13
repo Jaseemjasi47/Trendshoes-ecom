@@ -60,8 +60,8 @@
                                     label: 'Total Income',
                                     data: [{{cod_sum}},{{razorpay_sum}}],
                                     backgroundColor: [
-                                        'rgba(255, 0, 0, 1)',
-                                        'rgba(0, 0, 105, 1)',
+                                        'rgba(255, 0, 0, 0.5)',
+                                        'rgba(54, 162, 235, 0.5)',
                                         'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
                                         'rgba(153, 102, 255, 1)',
@@ -104,9 +104,9 @@
                                     label: 'PRODUCTS',
                                     data: [{% for category in allcategory %}{{ category.product_set.count }},{% endfor %}],
                                     backgroundColor: [
-                                        'rgba(255, 0, 0, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(255, 0, 0, 0.5)',
+                                        'rgba(54, 162, 235, 0.5)',
+                                        'rgba(255, 206, 86, 0.5)',
                                         'rgba(75, 192, 192, 1)',
                                         'rgba(153, 102, 255, 1)',
                                         'rgba(255, 159, 64, 1)'
@@ -140,29 +140,7 @@
     <!--End Graphs-->
 
 
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Worldwide Sales</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <canvas id="worldwide-sales"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Salse & Revenue</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <canvas id="salse-revenue"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Sales Chart End --> 
 
            

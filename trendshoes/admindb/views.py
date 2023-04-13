@@ -31,12 +31,22 @@ def admindashboard(request):
             total_sales = round(total_sales,2)
         if total_revenue is not None:
             total_revenue = round(total_revenue,2)
+
+        cod_sum = Payment.objects.filter(payment_method='COD' ).aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+        cod_sum = round(cod_sum,2)
+   
+        razorpay_sum = Payment.objects.filter(payment_method='Paid by Razorpay').aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+        razorpay_sum = round(razorpay_sum, 2)
+        allcategory = Category.objects.all()
         
         context = {
                 'orders_count': orders_count,
                 'today_sales': today_sales,
                 'total_sales': total_sales,
                 'total_revenue': total_revenue,
+                'razorpay_sum':razorpay_sum,
+                'cod_sum':cod_sum,
+                'allcategory':allcategory,
             }
             
         return render(request, 'admindashboard.html',context)
